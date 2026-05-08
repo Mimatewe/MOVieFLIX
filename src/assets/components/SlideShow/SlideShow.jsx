@@ -13,8 +13,8 @@ function SlideShow({title, movies}) {
         <div>
           <Swiper modules={[Navigation]} 
           navigation 
-          spaceBetween={150} 
-          slidesPerView={15.8}>
+          spaceBetween={30} 
+          slidesPerView={5.8}>
             {movies?.map((movie) => (
               <SwiperSlide key={movie.id}>
                 <MovieCard movie={movie} />
