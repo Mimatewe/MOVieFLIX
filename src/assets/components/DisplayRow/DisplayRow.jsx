@@ -1,12 +1,11 @@
 import styles from "./DisplayRow.module.css"
 import SlideShow from '../SlideShow/SlideShow'
-import { movies } from '../../../Data/Data'
 import { movieInstance } from "../../../Utility/MovieInstance";
 import requests from "../../../Utility/requestUrls" 
 import { useState, useEffect } from "react";
 
 function DisplayRow() {
-  const [movies, setMovies] = useState({
+  const [movieData, setMovieData] = useState({
     trending: [],
     netflixOriginals: [],
     topRated: [],
@@ -16,15 +15,12 @@ function DisplayRow() {
     romance: [],
     documentaries: [],
   });
-useEffect(() => {
-  fetchMovies();
-}, []);
 
-const fetchMovies = async () => {
-  try {
-    const [
-      trendingRes,
-      netflixRes,
+  const fetchMovies = async () => {
+    try {
+      const [
+        trendingRes,
+        netflixRes,
         topRatedRes,
         actionRes,
         comedyRes,
@@ -41,7 +37,7 @@ const fetchMovies = async () => {
         movieInstance.get(requests.fetchRomanceMovies),
         movieInstance.get(requests.fetchDocumentaries)
       ]);
-      setMovies({
+      setMovieData({
         trending: trendingRes.data.results,
         netflixOriginals: netflixRes.data.results,
         topRated: topRatedRes.data.results,
@@ -55,18 +51,22 @@ const fetchMovies = async () => {
       console.error("Error fetching movies:", error);
     }
   }
-  return (
-    <div className={styles.mainWrapper}>
-        <SlideShow title="Movie Suggestions" movies={movies.trending} />
-        <SlideShow title="Popular on Netflix" movies={movies.netflixOriginals} />
-        <SlideShow title="Trending Now" movies={movies.topRated} />
-        <SlideShow title="New Releases" movies={movies.action} />
-        <SlideShow title="Action Movies" movies={movies.comedy} />
-        <SlideShow title="Comedy Movies" movies={movies.horror} />
-        <SlideShow title="Horror Movies" movies={movies.romance} />
-        <SlideShow title="Romance Movies" movies={movies.documentaries} />
-    </div>
-  )
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+return (
+  <div className={styles.mainWrapper}>
+      <SlideShow title="Movie Suggestions" movies={movieData.trending} />
+      <SlideShow title="Popular on Netflix" movies={movieData.netflixOriginals} />
+      <SlideShow title="Trending Now" movies={movieData.topRated} />
+      <SlideShow title="New Releases" movies={movieData.action} />
+      <SlideShow title="Action Movies" movies={movieData.comedy} />
+      <SlideShow title="Comedy Movies" movies={movieData.horror} />
+      <SlideShow title="Horror Movies" movies={movieData.romance} />
+      <SlideShow title="Romance Movies" movies={movieData.documentaries} />
+  </div>
+)
 }
    
 export default DisplayRow

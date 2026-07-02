@@ -8,7 +8,7 @@ import { Navigation } from "swiper/modules"
 
 function SlideShow({title, movies}) {
   return (
-    <div>
+    <div className={styles.background}>
         <h2 className={styles.title}>{title}</h2>
         <div>
           <Swiper modules={[Navigation]} 

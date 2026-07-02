@@ -35,7 +35,9 @@ function Banner() {
         <img className={style.logoImg} src={NetflixBannerLogo} alt="Netflix Logo" />
 
         {/* Title */}
-        <h1 className={style.title}>{bannerImage?.original_name}</h1>
+        <h1 className={style.title}>
+          {bannerImage?.title || bannerImage?.name || bannerImage?.original_name}
+        </h1>
 
         {/* Description */}
         <h1 className={style.description}>
